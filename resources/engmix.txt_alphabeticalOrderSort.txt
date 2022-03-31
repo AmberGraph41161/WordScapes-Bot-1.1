@@ -1,0 +1,66 @@
+﻿#include <iostream>
+#include <cctype>
+#include <fstream>
+#include <conio.h>
+
+int main()
+{
+	//vars
+	std::string engmixlocation = "resources\\engmix.txt";
+	//open read
+	std::fstream read;
+	read.open(engmixlocation, std::ios::in);
+	if(read.fail())
+	{
+		std::cerr << "read.fail()" << std::endl;
+		std::cerr << "failed to open\"" << engmixlocation << "\"\terminating program…";
+		exit(-1);
+	}
+
+	//97 = a
+	//122 = z
+	char letter = 97;
+	std::string temp = "";
+	while(!read.eof())
+	{
+	    if(letter > 122)
+        {
+            //if passed ascii value for z, leave
+            break;
+        }
+
+		//init/reset vars after iteration
+		std::string stringletter(1, letter);
+
+		//open letter output file thing
+		std::string outputlocation = "output\\" + stringletter + ".txt";
+		std::fstream write;
+		write.open(outputlocation , std::ios::out);
+		//file fail somehow?
+		if(write.fail())
+		{
+			std::cerr << "failed to open a write file…" << std::endl;
+			std::cerr << "terminating program…" << std::endl;
+			exit(EXIT_FAILURE);
+		}
+
+		//write to file
+		int lastpos;
+		std::getline(read, temp);
+		while(temp[0] == letter)
+		{
+		    lastpos = read.tellg();
+			write << temp;
+			write << "\n";
+
+			std::getline(read, temp);
+		}
+		read.seekg(lastpos);
+
+		//end, close write to reset what file to write to
+		std::cout << "letter " + stringletter + " finished" << std::endl;
+		write.close();
+		letter++;
+	}
+	std::cout << "\ndone\n" << std::endl;
+}

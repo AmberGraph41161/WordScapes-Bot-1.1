@@ -1,0 +1,6 @@
+﻿"engmix.txt"
+http://www.gwicks.net/dictionaries.htm
+
+"engmix.txt_alphabeticalOrderSort.txt" && "output\a - z.txt"
+author: Jinwoo Kim, AKA AmberGraph41161
+NOTE: used "engmix.txt" to create both "engmix.txt_alphabeticalOrderSort.txt" && "output\a - z.txt"
